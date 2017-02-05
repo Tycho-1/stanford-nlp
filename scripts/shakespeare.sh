@@ -46,7 +46,9 @@ RE_ACT_SCENE_SHORT='(ACT_|SC_).+$'
 # Find the act/scene delimiter, e.g.
 #   SCENE II.
 #   Corioli. The Senate House.
-RE_ACT_SCENE='^[[:space:]]*(ACT|SCENE)[^_]'
+# It doesn't find this one bad example:
+#                       INDUCTION. SCENE I.
+RE_ACT_SCENE='^[[:space:]]*(ACT|SCENE|Act|Scene)[^_a-z]'
 
 # The second command "/.../{N; d;}" doesn't delete all of
 #   SCENE 4
