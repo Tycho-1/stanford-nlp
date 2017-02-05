@@ -29,7 +29,15 @@ RE_DIRECTION='\[.+\]'
 # This fails to remove the second line of
 #              Exeunt all but LAFEU and PAROLLES who stay behind,
 #                                      commenting of this wedding
-RE_EXIT='  (Exit|Exeunt)(.*[A-Z]+.*)?$'
+RE_EXIT='(  |<)(Exit|Exeunt)(.*[A-Z]+.*)?$'
+
+# Find instructions to enter, e.g.
+#   Enter SILVIUS and PHEBE
+# or
+#   Re-enter LUCIANA with a purse
+# Won't find things similar to
+#   Enter a MESSENGER, hastily
+RE_ENTER='[Ee]nter [A-Z][A-Z]'
 
 # Find shortened Act/Scene label e.g.
 #   ACT_3|SC_1
@@ -40,8 +48,19 @@ RE_ACT_SCENE_SHORT='(ACT_|SC_).+$'
 #   Corioli. The Senate House.
 RE_ACT_SCENE='^[[:space:]]*(ACT|SCENE)[^_]'
 
-# The command "/$RE_ACT_SCENE/{d; d}" doesn't delete all of
-# SCENE 4
+# The second command "/.../{N; d;}" doesn't delete all of
+#   SCENE 4
 #
-# A street
-sed -E -e "s/($RE_CHARACTER_PROMPT)|($RE_DIRECTION)|($RE_EXIT)|($RE_ACT_SCENE_SHORT)//g" -e "/$RE_ACT_SCENE/{N; d;}" $TXT_FINAL > $DATA_DIR/clean_shake.txt
+#   A street
+# Similarly, it doesn't delete all of
+#       Enter VENTIDIUS, as it were in triumph, with SILIUS
+#      and other Romans, OFFICERS and soldiers; the dead body
+#                of PACORUS borne before him
+# Also, it deletes
+#                           Enter AENEAS  
+#   Good morrow, lord, good morrow.
+# where it shouldn't (the last line is spoken, not a direction)
+sed -E \
+    -e "s/($RE_CHARACTER_PROMPT)|($RE_DIRECTION)|($RE_EXIT)|($RE_ACT_SCENE_SHORT)//g" \
+    -e "/($RE_ACT_SCENE)|($RE_ENTER)/{N; d;}" \
+    $TXT_FINAL > $DATA_DIR/clean_shake.txt
