@@ -19,7 +19,7 @@ sed -e '/^<<THIS ELECTRONIC/,/FOR MEMBERSHIP.>>$/d' -i "" $TXT_FINAL
 
 # Find character prompts from plays, e.g.
 #   COUNTESS. In delivering my son from me, ...
-RE_CHARACTER_PROMPT='^[[:space:]]+[A-Z]+\.'
+RE_CHARACTER_PROMPT='^[[:space:]]*[A-Z][A-Z]+\.'
 
 # Find stage movement direction, e.g.
 #   [Kneeling] or [Flourish. Exeunt]
