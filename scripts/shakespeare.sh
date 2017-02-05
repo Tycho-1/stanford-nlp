@@ -19,7 +19,7 @@ sed -e '/^<<THIS ELECTRONIC/,/FOR MEMBERSHIP.>>$/d' -i "" $TXT_FINAL
 
 # Find character prompts from plays, e.g.
 #   COUNTESS. In delivering my son from me, ...
-RE_CHARACTER_PROMPT='^[[:space:]]*[A-Z][A-Z]+\.'
+RE_CHARACTER_PROMPT='^[[:space:]]*[A-Z][A-Z]+[A-Z ]*\.'
 
 # Find stage movement direction, e.g.
 #   [Kneeling] or [Flourish. Exeunt]
@@ -60,7 +60,9 @@ RE_ACT_SCENE='^[[:space:]]*(ACT|SCENE)[^_]'
 #                           Enter AENEAS  
 #   Good morrow, lord, good morrow.
 # where it shouldn't (the last line is spoken, not a direction)
+#
+# NOTE: If swapping order of commands, check that you don't break anything
 sed -E \
-    -e "s/($RE_CHARACTER_PROMPT)|($RE_DIRECTION)|($RE_EXIT)|($RE_ACT_SCENE_SHORT)//g" \
     -e "/($RE_ACT_SCENE)|($RE_ENTER)/{N; d;}" \
+    -e "s/($RE_CHARACTER_PROMPT)|($RE_DIRECTION)|($RE_EXIT)|($RE_ACT_SCENE_SHORT)//g" \
     $TXT_FINAL > $DATA_DIR/clean_shake.txt
