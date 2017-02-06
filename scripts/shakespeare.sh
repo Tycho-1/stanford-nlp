@@ -4,18 +4,19 @@ MIT_URL=https://ocw.mit.edu/ans7870/6/6.006/s08/lecturenotes/files/t8.shakespear
 
 DATA_DIR=../data/shakespeare
 
-TXT_WITH_LICENCE=$DATA_DIR/shakespeare_with_licence.txt
-TXT_FINAL=$DATA_DIR/shakespeare.txt
+RAW=$DATA_DIR/raw.txt
+RAW_NO_LICENCE=$DATA_DIR/raw_no_licence.txt
+CLEAN=$DATA_DIR/clean.txt
 
 START_LINE_NO=245
 
-curl $MIT_URL -o $TXT_WITH_LICENCE
+curl $MIT_URL -o $RAW
 
 # Remove header containing metadata, licencing info, etc.
-tail -n +$START_LINE_NO $TXT_WITH_LICENCE > $TXT_FINAL
+tail -n +$START_LINE_NO $RAW > $RAW_NO_LICENCE
 
 # Remove licence reminder in between works
-sed -e '/^<<THIS ELECTRONIC/,/FOR MEMBERSHIP.>>$/d' -i "" $TXT_FINAL
+sed -e '/^<<THIS ELECTRONIC/,/FOR MEMBERSHIP.>>$/d' -i "" $RAW_NO_LICENCE
 
 # Find character prompts from plays, e.g.
 #   COUNTESS. In delivering my son from me, ...
@@ -67,4 +68,4 @@ RE_ACT_SCENE='^[[:space:]]*(ACT|SCENE|Act|Scene)[^_a-z]'
 sed -E \
     -e "/($RE_ACT_SCENE)|($RE_ENTER)/{N; d;}" \
     -e "s/($RE_CHARACTER_PROMPT)|($RE_DIRECTION)|($RE_EXIT)|($RE_ACT_SCENE_SHORT)//g" \
-    $TXT_FINAL > $DATA_DIR/clean_shake.txt
+    $RAW_NO_LICENCE > $CLEAN
