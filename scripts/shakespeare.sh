@@ -9,7 +9,7 @@ TXT_FINAL=$DATA_DIR/shakespeare.txt
 
 START_LINE_NO=245
 
-#curl $MIT_URL -o $TXT_WITH_LICENCE
+curl $MIT_URL -o $TXT_WITH_LICENCE
 
 # Remove header containing metadata, licencing info, etc.
 tail -n +$START_LINE_NO $TXT_WITH_LICENCE > $TXT_FINAL
