@@ -2,11 +2,9 @@
 
 MIT_URL=https://ocw.mit.edu/ans7870/6/6.006/s08/lecturenotes/files/t8.shakespeare.txt
 
-DATA_DIR=../data/shakespeare
-
-RAW=$DATA_DIR/raw.txt
-RAW_NO_LICENCE=$DATA_DIR/raw_no_licence.txt
-CLEAN=$DATA_DIR/clean.txt
+RAW=./raw_shakespeare.txt
+RAW_NO_LICENCE=./raw_no_licence_shakespeare.txt
+CLEAN=./clean_shakespeare.txt
 
 START_LINE_NO=245
 
