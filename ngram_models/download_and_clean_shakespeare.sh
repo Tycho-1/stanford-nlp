@@ -21,6 +21,7 @@ sed -e '/^<<THIS ELECTRONIC/,/FOR MEMBERSHIP.>>$/d' -i "" $RAW_NO_LICENCE
 #   COUNTESS. In delivering my son from me, ...
 RE_CHARACTER_PROMPT='^[[:space:]]*[A-Z][A-Z]+[A-Z ]*\.'
 RE_KING_LEAR_PROMPT='^  (Corn|Glou|Reg|Kent|Lear|Fool|Edg|Edm|Gent|Gon|Osw|Alb|Knight|Bur|France|Old Man)\.'
+RE_HAMLET_PROMPT='^  (Ber|Fran|Hor|Mar|King|Pol|Ham|Queen|All|Laer|Oph|Ghost|Both|Rey|Ros|Guil|Volt|Player|Capt|Mess|Servant|Sailor|Clown|Other|Priest|Osr|Fort|Ambassador)\.'
 
 # Find stage movement direction, e.g.
 #   [Kneeling] or [Flourish. Exeunt]
@@ -69,5 +70,5 @@ RE_ACT_SCENE='^[[:space:]]*(ACT|SCENE|Act|Scene)[^_a-z]'
 # NOTE: If swapping order of commands, check that you don't break anything
 sed -E \
     -e "/($RE_ACT_SCENE)|($RE_ENTER)/{N; d;}" \
-    -e "s/($RE_CHARACTER_PROMPT)|($RE_KING_LEAR_PROMPT)|($RE_DIRECTION)|($RE_EXIT)|($RE_ACT_SCENE_SHORT)//g" \
+    -e "s/($RE_CHARACTER_PROMPT)|($RE_KING_LEAR_PROMPT)|($RE_HAMLET_PROMPT)|($RE_DIRECTION)|($RE_EXIT)|($RE_ACT_SCENE_SHORT)//g" \
     $RAW_NO_LICENCE > $CLEAN
