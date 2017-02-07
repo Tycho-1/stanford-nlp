@@ -87,4 +87,4 @@ sed -E \
     -e "s/\.'/ $END_SENT'/g" \
     $CLEAN > $SENTENCES
 
-tr -c -s "A-Za-z$CONTRACTION$END_SENT" '\n' < $SENTENCES > $FINAL
+tr -c -s "A-Za-z$CONTRACTION$END_SENT" '\n' < $SENTENCES | tr 'A-Z' 'a-z' > $FINAL
