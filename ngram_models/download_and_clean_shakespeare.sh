@@ -6,6 +6,7 @@ RAW=./raw_shakespeare.txt
 RAW_NO_LICENCE=./plays_no_licence.txt
 CLEAN=./clean_plays.txt
 SENTENCES=./sentences.txt
+FINAL=./words.txt
 
 # Line of the first play, ALLS WELL THAT ENDS WELL
 START_LINE_NO=2886
@@ -55,6 +56,8 @@ RE_ACT_SCENE_SHORT='(ACT_|SC_).+$'
 #                       INDUCTION. SCENE I.
 RE_ACT_SCENE='^[[:space:]]*(ACT|SCENE|Act|Scene)[^_a-z]'
 
+CONTRACTION=+
+
 # The second command "/.../{N; d;}" doesn't delete all of
 #   SCENE 4
 #
@@ -72,13 +75,16 @@ RE_ACT_SCENE='^[[:space:]]*(ACT|SCENE|Act|Scene)[^_a-z]'
 sed -E \
     -e "/($RE_ACT_SCENE)|($RE_ENTER)/{N; d;}" \
     -e "s/($RE_CHARACTER_PROMPT)|($RE_KING_LEAR_PROMPT)|($RE_HAMLET_PROMPT)|($RE_DIRECTION)|($RE_EXIT)|($RE_ACT_SCENE_SHORT)//g" \
+    -e "s/([A-Za-z])'([A-Za-z])/\1$CONTRACTION\2/g" \
     $RAW_NO_LICENCE > $CLEAN
 
-
+# Sentence delimiter
 END_SENT=*
 
 sed -E \
-    -e "s/[.!?]$/$END_SENT/g" \
-    -e "s/[.!?][[:space:]]/$END_SENT /g" \
-    -e "s/\.'/$END_SENT'/g" \
+    -e "s/[.!?]$/ $END_SENT/g" \
+    -e "s/[.!?][[:space:]]/ $END_SENT /g" \
+    -e "s/\.'/ $END_SENT'/g" \
     $CLEAN > $SENTENCES
+
+tr -c -s "A-Za-z$CONTRACTION$END_SENT" '\n' < $SENTENCES > $FINAL
