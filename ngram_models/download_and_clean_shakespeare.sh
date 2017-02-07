@@ -5,6 +5,7 @@ MIT_URL=https://ocw.mit.edu/ans7870/6/6.006/s08/lecturenotes/files/t8.shakespear
 RAW=./raw_shakespeare.txt
 RAW_NO_LICENCE=./plays_no_licence.txt
 CLEAN=./clean_plays.txt
+SENTENCES=./sentences.txt
 
 # Line of the first play, ALLS WELL THAT ENDS WELL
 START_LINE_NO=2886
@@ -72,3 +73,12 @@ sed -E \
     -e "/($RE_ACT_SCENE)|($RE_ENTER)/{N; d;}" \
     -e "s/($RE_CHARACTER_PROMPT)|($RE_KING_LEAR_PROMPT)|($RE_HAMLET_PROMPT)|($RE_DIRECTION)|($RE_EXIT)|($RE_ACT_SCENE_SHORT)//g" \
     $RAW_NO_LICENCE > $CLEAN
+
+
+END_SENT=*
+
+sed -E \
+    -e "s/[.!?]$/$END_SENT/g" \
+    -e "s/[.!?][[:space:]]/$END_SENT /g" \
+    -e "s/\.'/$END_SENT'/g" \
+    $CLEAN > $SENTENCES
