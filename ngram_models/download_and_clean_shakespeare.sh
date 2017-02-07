@@ -29,7 +29,7 @@ RE_DIRECTION='\[.+\]'
 # This fails to remove the second line of
 #              Exeunt all but LAFEU and PAROLLES who stay behind,
 #                                      commenting of this wedding
-RE_EXIT='(  |<)(Exit|Exeunt)(.*[A-Z]+.*)?$'
+RE_EXIT='(  |<)(Exit|Exeunt)(.*[A-Z]+.*)?\.?$'
 
 # Find instructions to enter, e.g.
 #   Enter SILVIUS and PHEBE
