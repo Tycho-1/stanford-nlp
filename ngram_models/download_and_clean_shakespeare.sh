@@ -37,6 +37,8 @@ RE_EXIT='(  |<)(Exit|Exeunt)(.*[A-Z]+.*)?\.?$'
 #   Re-enter LUCIANA with a purse
 # Won't find things similar to
 #   Enter a MESSENGER, hastily
+# or
+#   Enter a Doctor.
 RE_ENTER='[Ee]nter [A-Z][A-Z]'
 
 # Find shortened Act/Scene label e.g.
