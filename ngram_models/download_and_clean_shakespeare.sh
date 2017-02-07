@@ -3,14 +3,15 @@
 MIT_URL=https://ocw.mit.edu/ans7870/6/6.006/s08/lecturenotes/files/t8.shakespeare.txt
 
 RAW=./raw_shakespeare.txt
-RAW_NO_LICENCE=./raw_no_licence_shakespeare.txt
-CLEAN=./clean_shakespeare.txt
+RAW_NO_LICENCE=./plays_no_licence.txt
+CLEAN=./clean_plays.txt
 
-START_LINE_NO=245
+# Line of the first play, ALLS WELL THAT ENDS WELL
+START_LINE_NO=2886
 
 curl $MIT_URL -o $RAW
 
-# Remove header containing metadata, licencing info, etc.
+# Remove header containing metadata, licencing info, etc. and Sonnets
 tail -n +$START_LINE_NO $RAW > $RAW_NO_LICENCE
 
 # Remove licence reminder in between works
