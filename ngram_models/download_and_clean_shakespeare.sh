@@ -88,3 +88,5 @@ sed -E \
     $CLEAN > $SENTENCES
 
 tr -c -s "A-Za-z$CONTRACTION$END_SENT" '\n' < $SENTENCES | tr 'A-Z' 'a-z' > $FINAL
+
+rm $RAW $RAW_NO_LICENCE $CLEAN $SENTENCES
