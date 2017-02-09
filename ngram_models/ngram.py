@@ -56,10 +56,13 @@ class NGramModel:
     def train(self, sentence):
         for condition, word in self._ngrams(sentence):
             self._conditionedProbs[condition].train(word)
+        return self
 
     def logprob(self, sentence):
-        logprobs = [log2(self._conditionedProbs[condition].prob(word))
-                    for condition, word in self._ngrams(sentence)]
+        probs = [self._conditionedProbs[condition].prob(word)
+                 for condition, word in self._ngrams(sentence)]
+        logprobs = [log2(prob) if prob > 0 else -float('inf')
+                    for prob in probs]
         return sum(logprobs)
 
     def perplexity(self, sentences):

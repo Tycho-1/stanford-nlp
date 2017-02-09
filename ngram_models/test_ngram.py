@@ -1,4 +1,5 @@
 import unittest
+import math
 
 from ngram import NGramModel
 from ngram import MultinomialModel
@@ -28,6 +29,11 @@ class NGramModelTestCase(unittest.TestCase):
         model = NGramModel(1)
         model.train(['i', 'move', 'slowly'])
         self.assertEqual(model.perplexity([['move']]), 4)
+
+    def test_infinite_perplexity(self):
+        model = NGramModel(1)
+        model.train(['old'])
+        self.assertEqual(model.perplexity([['new']]), math.inf)
 
     def test_bigram_logprob_of_single_word_sentences(self):
         model = NGramModel(2)
